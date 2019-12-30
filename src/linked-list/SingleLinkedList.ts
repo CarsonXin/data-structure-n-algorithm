@@ -1,11 +1,10 @@
 import {
     ILinkedList,
-    ILinkedListNode,
     ISingleLinkedListNode,
     ISingleLinkedListNodeType,
-} from '@/linked-list/linked-list'
+} from '@/linked-list/index'
 
-class SingleLinkedListNode<T> implements ISingleLinkedListNode<T> {
+export class SingleLinkedListNode<T> implements ISingleLinkedListNode<T> {
     value: T | null = null
     next: ISingleLinkedListNodeType<T> = null
 
@@ -47,14 +46,24 @@ export class SingleLinkedList<T> implements ILinkedList<T> {
 
     append(value: T): void {}
 
-    private removeNode(node: ILinkedListNode<T>) {}
+    private removeNode(node: ISingleLinkedListNode<T>) {}
 
     removeByIndex(index: number): boolean {
-        return  false
+        let node = this.findByIndex(index)
+        if (node === null) {
+            return false
+        }
+        this.removeNode(node)
+        return true
     }
 
     removeByValue(value: T): boolean {
-        return  false
+        let node = this.findByValue(value)
+        if (node === null) {
+            return false
+        }
+        this.removeNode(node)
+        return true
     }
 
     toString(splitter: string = ' '): string {

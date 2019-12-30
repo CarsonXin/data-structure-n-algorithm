@@ -3,7 +3,7 @@ import {
     ILinkedList,
     ILinkedListNode,
     ILinkedListNodeType,
-} from '@/linked-list/linked-list'
+} from '@/linked-list/index'
 
 export class LinkedList<T> implements ILinkedList<T> {
     // 哨兵头结点

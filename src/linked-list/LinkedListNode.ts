@@ -1,4 +1,4 @@
-import { ILinkedListNode, ILinkedListNodeType } from '@/linked-list/linked-list'
+import { ILinkedListNode, ILinkedListNodeType } from '@/linked-list/index'
 
 export class LinkedListNode<T> implements ILinkedListNode<T>{
     value: T | null = null
