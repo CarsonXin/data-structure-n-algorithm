@@ -3,7 +3,7 @@ import {
     ISingleLinkedListNode,
     ISingleLinkedListNodeType,
 } from '@/linked-list/index'
-
+// todo 完成代码逻辑 1230
 export class SingleLinkedListNode<T> implements ISingleLinkedListNode<T> {
     value: T | null = null
     next: ISingleLinkedListNodeType<T> = null
@@ -16,10 +16,12 @@ export class SingleLinkedListNode<T> implements ISingleLinkedListNode<T> {
 
 export class SingleLinkedList<T> implements ILinkedList<T> {
     size: number = 0
-    private readonly head: ISingleLinkedListNodeType<T>
+    private head: ISingleLinkedListNodeType<T>
+    private tail: ISingleLinkedListNodeType<T>
 
     constructor() {
-        this.head = new SingleLinkedListNode<any>(null)
+        this.head = null
+        this.tail = null
     }
 
     findByIndex(index: number): ISingleLinkedListNodeType<T> {
@@ -42,11 +44,52 @@ export class SingleLinkedList<T> implements ILinkedList<T> {
 
     insertTo(value: T, index: number) {}
 
-    prepend(value: T): void {}
+    prepend(value: T): void {
+        let newNode = new SingleLinkedListNode(value)
+        if (!this.tail) {
+            this.tail = this.head = newNode
+        } else {
+            newNode.next = this.head
+            this.head = newNode
+        }
+    }
 
-    append(value: T): void {}
+    append(value: T): void {
+        let newNode = new SingleLinkedListNode(value)
+        if (!this.tail) {
+            this.tail = this.head = newNode
+        } else {
+            this.tail.next = newNode
+            this.tail = newNode
+        }
+    }
 
-    private removeNode(node: ISingleLinkedListNode<T>) {}
+    private removeNode(node: ISingleLinkedListNode<T>) {
+        let prevNode = this.head
+        if (prevNode) {
+            while (prevNode.next && prevNode.next.value !== node.value) {
+                if (!prevNode.next.next) {
+                    prevNode.next = null
+                } else {
+                    prevNode = prevNode.next
+                }
+            }
+            prevNode.next = node.next
+        }
+        return prevNode
+    }
+
+    removeHead() {
+        if (this.head) {
+            this.removeNode(this.head)
+        }
+    }
+
+    removeTail(): void {
+        if (this.tail) {
+            this.removeNode(this.tail)
+        }
+    }
 
     removeByIndex(index: number): boolean {
         let node = this.findByIndex(index)

@@ -88,6 +88,18 @@ export class LinkedList<T> implements ILinkedList<T> {
         this.size--
     }
 
+    removeHead() {
+        if (this.head) {
+            this.removeNode(this.head)
+        }
+    }
+
+    removeTail() {
+        if (this.tail) {
+            this.removeNode(this.tail)
+        }
+    }
+
     removeByIndex(index: number): boolean {
         let position = 0
         let prevNode = this.head

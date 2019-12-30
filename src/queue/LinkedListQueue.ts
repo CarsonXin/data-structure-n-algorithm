@@ -1,15 +1,24 @@
 import { IQueue } from '@/queue/index'
-import { ISingleLinkedListNodeType } from '@/linked-list'
-import { SingleLinkedListNode } from '@/linked-list/SingleLinkedList'
+import { ILinkedList, ISingleLinkedListNodeType } from '@/linked-list'
+import {
+    SingleLinkedList,
+    SingleLinkedListNode,
+} from '@/linked-list/SingleLinkedList'
 
 export default class LinkedListQueue<T> implements IQueue<T> {
     private tail: ISingleLinkedListNodeType<T> = null
     private head: ISingleLinkedListNodeType<T> = null
+    private list: ILinkedList<T>
+
+    constructor() {
+        this.list = new SingleLinkedList()
+    }
 
     dequeue(): T | null {
         if (this.head) {
             let value = this.head.value
             this.head = this.head.next
+            this.list.removeHead()
             return value
         } else {
             return null
@@ -25,6 +34,7 @@ export default class LinkedListQueue<T> implements IQueue<T> {
             this.tail.next = newNode
             this.tail = newNode
         }
+        this.list.append(value)
         return true
     }
 }

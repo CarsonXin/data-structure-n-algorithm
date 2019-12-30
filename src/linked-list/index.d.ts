@@ -25,6 +25,10 @@ export interface ILinkedList<T> {
 
     append(value: T): void
 
+    removeHead(): void
+
+    removeTail(): void
+
     removeByIndex(index: number): boolean
 
     removeByValue(value: T): boolean
